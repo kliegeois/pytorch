@@ -1975,8 +1975,8 @@ class TestSparseCSR(TestCase):
     @precisionOverride({torch.double: 1e-8, torch.float: 1e-4, torch.bfloat16: 0.6,
                         torch.half: 1e-1, torch.cfloat: 1e-4, torch.cdouble: 1e-8})
     @dtypesIfCUDA(*floating_types_and(torch.complex64,
-                                      *[torch.bfloat16] if (SM80OrLater and not TEST_WITH_ROCM) else [],
-                                      *[torch.half] if (SM53OrLater and not TEST_WITH_ROCM) else [],
+                                      *[torch.bfloat16] if SM80OrLater else [],
+                                      *[torch.half] if SM53OrLater else [],
                                       *[torch.complex128]
                                       if CUSPARSE_SPMM_COMPLEX128_SUPPORTED or HIPSPARSE_SPMM_COMPLEX128_SUPPORTED
                                       else []))
@@ -2051,8 +2051,8 @@ class TestSparseCSR(TestCase):
     @skipCPUIfNoMklSparse
     @dtypes(*floating_and_complex_types())
     @dtypesIfCUDA(*floating_types_and(torch.complex64,
-                                      *[torch.bfloat16] if SM80OrLater and not TEST_WITH_ROCM else [],
-                                      *[torch.half] if SM53OrLater and not TEST_WITH_ROCM else [],
+                                      *[torch.bfloat16] if SM80OrLater else [],
+                                      *[torch.half] if SM53OrLater else [],
                                       *[torch.complex128]
                                       if CUSPARSE_SPMM_COMPLEX128_SUPPORTED or HIPSPARSE_SPMM_COMPLEX128_SUPPORTED
                                       else []))
